@@ -12,6 +12,17 @@ from Crypto.Util.Padding import pad, unpad
 
 VAULT_FILE = 'vault.json'
 
+def load_vault():
+    if not os.path.exists(VAULT_FILE):
+        return {}
+    with open(VAULT_FILE, "r") as f:
+        return json.load(f)
+    
+def save_vault(data):
+    with open(VAULT_FILE, "w") as f:
+        json.dump(data, f, indent=4)
+
+
 
 def load_vault():
     if not os.path.exists(VAULT_FILE):
@@ -218,6 +229,16 @@ def tamper():
 
 
 def delete_user():
+    vault = load_vault()
+
+    username = input("Username to delete: ")
+
+    if username in vault:
+        del vault[username]
+        save_vault(vault)
+        print("User deleted.")
+    else:
+        print("User not found.")
     vault = load_vault()
 
     username = input("Username to delete: ")
