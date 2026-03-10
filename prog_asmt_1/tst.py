@@ -238,7 +238,7 @@ def main():
     '''
     main function
     '''
-    print('1.Register\n2.Store\n3.Read\n4.Tamper\n5.DeleteUser\n6.Exit')
+    print('\n1.Register\n2.Store\n3.Read\n4.Tamper\n5.DeleteUser\n6.Exit')
     inpt = input()
 
     try:

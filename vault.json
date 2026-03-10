@@ -4,5 +4,11 @@
         "salt": "hDSmkO9apOxMW3p9MAU9Mg==",
         "hash": "MD5",
         "passwd": "fneYhnMcPC8yLovmWTrF6g=="
+    },
+    {
+        "name": "shrd",
+        "salt": "/B7F2GsNLejdbFUqZPQkzA==",
+        "hash": "MD5",
+        "passwd": "4bml3Ix9KV/Xc4crJsT8AA=="
     }
 ]
