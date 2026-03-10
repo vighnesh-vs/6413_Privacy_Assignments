@@ -258,6 +258,7 @@ def main():
                 passwd = input('Enter password: ')
                 hash_algo = input('Preferred Hash mode (md5/sha256): ')
                 register(username, passwd, hash_algo)
+                main()
 
             elif selected_option == 2:
 
@@ -267,15 +268,23 @@ def main():
                 # converting input note into bytes for encryption
                 message = input().encode('utf-8')
                 store(username, passwd, message)
+                main()
 
             elif selected_option == 3:
                 read()
+                main()
+
             elif selected_option == 4:
                 tamper()
+                main()
+
             elif selected_option == 5:
                 delete_user()
+                main()
+
             elif selected_option == 6:
                 exit()
+                main()
 
 
 try:
