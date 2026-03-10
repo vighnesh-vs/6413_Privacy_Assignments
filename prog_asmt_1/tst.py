@@ -251,30 +251,31 @@ def main():
         main()
 
     else:
-        if selected_option == 1:
+        while(selected_option <= 6):
+            if selected_option == 1:
 
-            username = input('Enter username: ')
-            passwd = input('Enter password: ')
-            hash_algo = input('Preferred Hash mode (md5/sha256): ')
-            register(username, passwd, hash_algo)
+                username = input('Enter username: ')
+                passwd = input('Enter password: ')
+                hash_algo = input('Preferred Hash mode (md5/sha256): ')
+                register(username, passwd, hash_algo)
 
-        elif selected_option == 2:
+            elif selected_option == 2:
 
-            username = input('Enter username: ')
-            passwd = input('Enter password: ')
-            print('Enter note:')
-            # converting input note into bytes for encryption
-            message = input().encode('utf-8')
-            store(username, passwd, message)
+                username = input('Enter username: ')
+                passwd = input('Enter password: ')
+                print('Enter note:')
+                # converting input note into bytes for encryption
+                message = input().encode('utf-8')
+                store(username, passwd, message)
 
-        elif selected_option == 3:
-            read()
-        elif selected_option == 4:
-            tamper()
-        elif selected_option == 5:
-            delete_user()
-        elif selected_option == 6:
-            exit()
+            elif selected_option == 3:
+                read()
+            elif selected_option == 4:
+                tamper()
+            elif selected_option == 5:
+                delete_user()
+            elif selected_option == 6:
+                exit()
 
 
 try:
