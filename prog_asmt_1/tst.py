@@ -224,6 +224,9 @@ def store(username, passwd, message):
 def is_tampered(iv, ciphertext, integrity_hash):
     '''
     to check if the note is tampered or not
+    accepts iv, ciphtertext and integrity hash
+    computes integrity hash using iv and ciphertext and compares with integrity hash which was computed while storing the note
+    if file was tampered, the new integrity hash will not match with the one that was omputed while storing the note
     '''
     d_iv = base64.b64decode(iv.encode('utf-8'))
     e_ciphertext = ciphertext.encode('utf-8')
@@ -239,6 +242,9 @@ def is_tampered(iv, ciphertext, integrity_hash):
 def read(username, password):
     '''
     function to read the user notes
+    verifies the user and password
+    if there's a note for the user, it'll check for tampering and displays if it's not tampared
+    if the note is tampered, then the note is not displayed, rather 'tampered' message is shown
     '''
     user_data = verify_user(username)
     if verify_user(username):
