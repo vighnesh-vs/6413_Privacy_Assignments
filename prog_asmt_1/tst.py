@@ -27,7 +27,7 @@ def save_vault(data):
 
 def verify_user(username):
     '''
-    lookup input username in the valult file, returns dictionary pointer to user_data
+    lookup input username in the vault file, returns dictionary pointer to user_data
     '''
 
     try:
@@ -213,8 +213,48 @@ def read():
 
 def tamper():
     '''
+    Intentionally modify 1 byte of the ciphertext.
     '''
-    pass
+
+    username = input("Enter username: ")
+
+    data = load_vault()
+
+    user = verify_user(username)
+
+    if not user:
+        print("User not found.")
+        return
+
+    if 'ciphertext' not in user:
+        print("No stored note found to tamper with.")
+        return
+
+    # Decode ciphertext from Base64 to raw
+    ciphertext = base64.b64decode(user['ciphertext'])
+    print(ciphertext)
+
+    # Convert to mutable bytearray so we can modify it
+    tampered = bytearray(ciphertext)
+    print(tampered)
+
+    # Flip one bit in the first byte
+    tampered[0] ^= 1
+
+    # Convert back to Base64
+    tampered_b64 = base64.b64encode(bytes(tampered)).decode('utf-8')
+    print(tampered_b64)
+
+    # updating the user's ciphertext to tampered text
+    for u in data:
+        if u.get("name") == username:
+            u["ciphertext"] = tampered_b64
+
+    # Save modified vault
+    save_vault(data)
+
+    print("Ciphertext has been tampered")
+
 
 
 def delete_user():
