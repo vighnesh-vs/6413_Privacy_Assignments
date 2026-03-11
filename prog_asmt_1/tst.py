@@ -238,12 +238,15 @@ def read(username, password):
     user_data = verify_user(username)
     if verify_user(username):
         if verify_login(password, user_data['salt'],user_data['hash'], user_data['passwd']):
-            if not is_tampered(user_data['iv'], user_data['ciphertext'], user_data['integrity_hash']):
-                aes_key = base64.b64decode(user_data['passwd'])
-                message = decrypt_aes_cbc(user_data['ciphertext'], aes_key, base64.b64decode(user_data['iv'].encode('utf-8')))
-                print(f'Decrypted: {message.decode('utf-8')}')
+            if user_data.get('ciphertext'):
+                if not is_tampered(user_data['iv'], user_data['ciphertext'], user_data['integrity_hash']):
+                    aes_key = base64.b64decode(user_data['passwd'])
+                    message = decrypt_aes_cbc(user_data['ciphertext'], aes_key, base64.b64decode(user_data['iv'].encode('utf-8')))
+                    print(f'Decrypted: {message.decode('utf-8')}')
+                else:
+                    print('Tampering detected!')
             else:
-                print('Tampering detected!')
+                print('Add note to view')
         else:
             print('Incorrect password')
     else:
