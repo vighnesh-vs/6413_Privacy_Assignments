@@ -39,7 +39,7 @@ def save_vault(data):
 
 def verify_user(username):
     '''
-    lookup input username in the vault file, returns dictionary pointer to user_data
+    lookup input username in the valult file, returns dictionary pointer to user_data
     '''
 
     try:
@@ -233,6 +233,7 @@ def is_tampered(iv, ciphertext, integrity_hash):
 
 def read(username, password):
     '''
+    function to read the user notes
     '''
     user_data = verify_user(username)
     if verify_user(username):
@@ -294,7 +295,6 @@ def tamper():
     print("Ciphertext has been tampered")
 
 
-
 def delete_user():
     vault = load_vault()
 
@@ -326,49 +326,45 @@ def main():
     '''
     main function
     '''
-    selected_option = 1
-    while(selected_option <= 6):
-        print('\n1.Register\n2.Store\n3.Read\n4.Tamper\n5.DeleteUser\n6.Exit')
-        inpt = input()
+    print('1.Register\n2.Store\n3.Read\n4.Tamper\n5.DeleteUser\n6.Exit')
+    inpt = input()
 
-        try:
-            selected_option = int(inpt.strip())
-        except Exception as e:
-            raise Exception('Error, not a number, try again, enter a number...')
+    try:
+        selected_option = int(inpt.strip())
+    except Exception as e:
+        raise Exception('Error, not a number, try again, enter a number...')
 
-        if selected_option < 1 or selected_option > 6:
-            print('Error, enter correct option...\n')
-            main()
+    if selected_option < 1 or selected_option > 6:
+        print('Error, enter correct option...\n')
+        main()
 
-        else:
-            
-            if selected_option == 1:
+    else:
+        if selected_option == 1:
 
-                username = input('Enter username: ')
-                passwd = input('Enter password: ')
-                hash_algo = input('Preferred Hash mode (md5/sha256): ')
-                register(username, passwd, hash_algo)
+            username = input('Enter username: ')
+            passwd = input('Enter password: ')
+            hash_algo = input('Preferred Hash mode (md5/sha256): ')
+            register(username, passwd, hash_algo)
 
-            elif selected_option == 2:
+        elif selected_option == 2:
 
-                username = input('Enter username: ')
-                passwd = input('Enter password: ')
-                print('Enter note:')
-                # converting input note into bytes for encryption
-                message = input().encode('utf-8')
-                store(username, passwd, message)
+            username = input('Enter username: ')
+            passwd = input('Enter password: ')
+            print('Enter note:')
+            # converting input note into bytes for encryption
+            message = input().encode('utf-8')
+            store(username, passwd, message)
 
-            elif selected_option == 3:
-                read()
-
-            elif selected_option == 4:
-                tamper()
-
-            elif selected_option == 5:
-                delete_user()
-
-            elif selected_option == 6:
-                exit()
+        elif selected_option == 3:
+            username = input('Enter username: ')
+            passwd = input('Enter password: ')
+            read(username, passwd)
+        elif selected_option == 4:
+            tamper()
+        elif selected_option == 5:
+            delete_user()
+        elif selected_option == 6:
+            exit()
 
 
 try:
