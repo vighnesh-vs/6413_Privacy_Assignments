@@ -1,5 +1,19 @@
 '''
-Programming assignment 1
+Programming assignment 1: Secure Drop Vault with password protection and tamper detection
+
+The vault file 'vault.json' stores set of authorised users as a list [] of {python dictionary} items,
+each dictionary corresponding to a 'user' storing following information (in base64 encoding):
+    {
+        user['name'] : username
+        user['salt'] : salt (16 bytes), generated for hashing password
+        user['hash'] : hashing algorithm (MD5 / SHA256)
+        user['passwd'] : user's secret password, stored as the Derived Key for AES encryption
+        user['iv'] : IV (16 bytes), generated for CBC mode encryption
+        user['ciphertext'] : encryption of the user's secret 'note' message
+        user['integrity_hash'] : stored to verify integrity and detect tampering of ciphertext 
+    }
+
+Supports both MD5 and SHA256 hashing algorithm for secure storage of password, and a secret note for each user    
 '''
 
 import os
@@ -12,19 +26,6 @@ from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
 
 VAULT_FILE = 'vault.json'
-
-
-def load_vault():
-    if not os.path.exists(VAULT_FILE):
-        return {}
-    with open(VAULT_FILE, "r") as f:
-        return json.load(f)
-
-
-def save_vault(data):
-    with open(VAULT_FILE, "w") as f:
-        json.dump(data, f, indent=4)
-
 
 def load_vault():
     if not os.path.exists(VAULT_FILE):
@@ -40,7 +41,9 @@ def save_vault(data):
 
 def verify_user(username):
     '''
-    lookup input username in the valult file, returns dictionary pointer to user_data
+    Lookup input 'username' in the valult file:
+        returns dictionary pointer to 'user_data', 
+        else returns 'None' pointer
     '''
 
     try:
@@ -55,7 +58,7 @@ def verify_user(username):
         # If the file doesn't exist or is empty, start with an empty list
         print("Error loading JSON Data from vault")
 
-    return None
+    return None      
 
 
 def verify_login(input_password, stored_salt_b64, hash_algo, stored_password_b64):
