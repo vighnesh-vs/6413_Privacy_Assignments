@@ -39,7 +39,7 @@ def save_vault(data):
 
 def verify_user(username):
     '''
-    lookup input username in the valult file, returns dictionary pointer to user_data
+    lookup input username in the vault file, returns dictionary pointer to user_data
     '''
 
     try:
@@ -251,8 +251,48 @@ def read(username, password):
 
 def tamper():
     '''
+    Intentionally modify 1 byte of the ciphertext.
     '''
-    pass
+
+    username = input("Enter username: ")
+
+    data = load_vault()
+
+    user = verify_user(username)
+
+    if not user:
+        print("User not found.")
+        return
+
+    if 'ciphertext' not in user:
+        print("No stored note found to tamper with.")
+        return
+
+    # Decode ciphertext from Base64 to raw
+    ciphertext = base64.b64decode(user['ciphertext'])
+    print(ciphertext)
+
+    # Convert to mutable bytearray so we can modify it
+    tampered = bytearray(ciphertext)
+    print(tampered)
+
+    # Flip one bit in the first byte
+    tampered[0] ^= 1
+
+    # Convert back to Base64
+    tampered_b64 = base64.b64encode(bytes(tampered)).decode('utf-8')
+    print(tampered_b64)
+
+    # updating the user's ciphertext to tampered text
+    for u in data:
+        if u.get("name") == username:
+            u["ciphertext"] = tampered_b64
+
+    # Save modified vault
+    save_vault(data)
+
+    print("Ciphertext has been tampered")
+
 
 
 def delete_user():
@@ -286,45 +326,49 @@ def main():
     '''
     main function
     '''
-    print('1.Register\n2.Store\n3.Read\n4.Tamper\n5.DeleteUser\n6.Exit')
-    inpt = input()
+    selected_option = 1
+    while(selected_option <= 6):
+        print('\n1.Register\n2.Store\n3.Read\n4.Tamper\n5.DeleteUser\n6.Exit')
+        inpt = input()
 
-    try:
-        selected_option = int(inpt.strip())
-    except Exception as e:
-        raise Exception('Error, not a number, try again, enter a number...')
+        try:
+            selected_option = int(inpt.strip())
+        except Exception as e:
+            raise Exception('Error, not a number, try again, enter a number...')
 
-    if selected_option < 1 or selected_option > 6:
-        print('Error, enter correct option...\n')
-        main()
+        if selected_option < 1 or selected_option > 6:
+            print('Error, enter correct option...\n')
+            main()
 
-    else:
-        if selected_option == 1:
+        else:
+            
+            if selected_option == 1:
 
-            username = input('Enter username: ')
-            passwd = input('Enter password: ')
-            hash_algo = input('Preferred Hash mode (md5/sha256): ')
-            register(username, passwd, hash_algo)
+                username = input('Enter username: ')
+                passwd = input('Enter password: ')
+                hash_algo = input('Preferred Hash mode (md5/sha256): ')
+                register(username, passwd, hash_algo)
 
-        elif selected_option == 2:
+            elif selected_option == 2:
 
-            username = input('Enter username: ')
-            passwd = input('Enter password: ')
-            print('Enter note:')
-            # converting input note into bytes for encryption
-            message = input().encode('utf-8')
-            store(username, passwd, message)
+                username = input('Enter username: ')
+                passwd = input('Enter password: ')
+                print('Enter note:')
+                # converting input note into bytes for encryption
+                message = input().encode('utf-8')
+                store(username, passwd, message)
 
-        elif selected_option == 3:
-            username = input('Enter username: ')
-            passwd = input('Enter password: ')
-            read(username, passwd)
-        elif selected_option == 4:
-            tamper()
-        elif selected_option == 5:
-            delete_user()
-        elif selected_option == 6:
-            exit()
+            elif selected_option == 3:
+                read()
+
+            elif selected_option == 4:
+                tamper()
+
+            elif selected_option == 5:
+                delete_user()
+
+            elif selected_option == 6:
+                exit()
 
 
 try:

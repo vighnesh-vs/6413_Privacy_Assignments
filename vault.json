@@ -1,0 +1,32 @@
+[
+    {
+        "name": "Shrd",
+        "salt": "hDSmkO9apOxMW3p9MAU9Mg==",
+        "hash": "MD5",
+        "passwd": "fneYhnMcPC8yLovmWTrF6g=="
+    },
+    {
+        "name": "Shrd2",
+        "salt": "JzLjw5KzIihX/g5y261nfA==",
+        "hash": "SHA256",
+        "passwd": "SRvzzyIBCIk8K01vxohEopXJkikBz+ZcoLlsSMv3wmA="
+    },
+    {
+        "name": "Shrd3",
+        "salt": "X2fO8neP7t43eobHOnKCPQ==",
+        "hash": "MD5",
+        "passwd": "+YFkPmJw8RAUA8KwlfF7Wg==",
+        "iv": "ypfa3ygpYRmxIxC65vsZqA==",
+        "ciphertext": "kbHan5KPz0raxxRfhBZHUyq5P58KN3sG1+N63xEaB38=",
+        "integrity_hash": "GxKPdWQiqDnHglscyg/lrJX+/bVPow1BTPJ00F7b314="
+    },
+    {
+        "name": "Shrd4",
+        "salt": "TiAvFcrfcT6z6vzbGXKDKQ==",
+        "hash": "MD5",
+        "passwd": "E1EtNbPZ+Wi5x/eBDXkMMw==",
+        "iv": "9pALoSzAk4giP9r1LhnUHA==",
+        "ciphertext": "V0JPMaehM+4R650w3uSH01o9WVgC3l3zC0DXFPY6wnE=",
+        "integrity_hash": "ygtL8HiWJdVWDc04xQ31aofU0fM3xCkjzS3vTE/bTIk="
+    }
+]
