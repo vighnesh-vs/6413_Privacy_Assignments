@@ -7,6 +7,7 @@ import json
 import base64
 import hashlib
 import hmac
+import traceback
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
 
@@ -216,11 +217,18 @@ def store(username, passwd, message):
     pass
 
 
-def is_tampered():
+def is_tampered(iv, ciphertext, integrity_hash):
     '''
     to check if the note is tampered or not
     '''
-    return False
+    d_iv = base64.b64decode(iv.encode('utf-8'))
+    e_ciphertext = ciphertext.encode('utf-8')
+    n_integrity_hash = hashlib.sha256(d_iv+e_ciphertext)
+    nd_integrity_hash = base64.b64encode(n_integrity_hash.digest()).decode('utf-8')
+    if hmac.compare_digest(integrity_hash, nd_integrity_hash):
+        return False  
+    else:
+        return True 
 
 
 def read(username, password):
@@ -229,7 +237,7 @@ def read(username, password):
     user_data = verify_user(username)
     if verify_user(username):
         if verify_login(password, user_data['salt'],user_data['hash'], user_data['passwd']):
-            if not is_tampered():
+            if not is_tampered(user_data['iv'], user_data['ciphertext'], user_data['integrity_hash']):
                 aes_key = base64.b64decode(user_data['passwd'])
                 message = decrypt_aes_cbc(user_data['ciphertext'], aes_key, base64.b64decode(user_data['iv'].encode('utf-8')))
                 print(f'Decrypted: {message.decode('utf-8')}')
@@ -324,3 +332,4 @@ try:
         main()
 except Exception as e:
     print(f'Error - {e}')
+    print(traceback.format_exc())
