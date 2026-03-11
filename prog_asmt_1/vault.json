@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Abhijat",
+        "salt": "+PySZd1ifRKZiOySusFojQ==",
+        "hash": "MD5",
+        "passwd": "HAov8iU/QUQp6NrSHlbGpQ==",
+        "iv": "tAiuiVWQz6RN58zaQeuTDg==",
+        "ciphertext": "iDtd/2dcZHR2Z0JBIdzzjUYUEfnef+VNCpORa+aCFPc=",
+        "integrity_hash": "4rJuOoY8oULmBzYyOHQKfGfFg2KuP3l94CBAPrvSu1A="
+    },
+    {
+        "name": "vic",
+        "salt": "GgvcVtuUYQdqiCkZ7mAc4Q==",
+        "hash": "MD5",
+        "passwd": "YapTiMu6ZQ2mPqOarKqxzQ==",
+        "iv": "qKPBKD9MHNy25ebeKyBT+w==",
+        "ciphertext": "2q1Q7QTl4vF4y5NA1rWn/g==",
+        "integrity_hash": "NOXxtbi2beWEHRKudpNvhKzTosdYZGBihyuq24zJn54="
+    }
+]
