@@ -128,11 +128,11 @@ def register(username, passwd, hash_algo):
 
     # Generate derived key as HASH(salt||password)
     password_bytes = passwd.encode('utf-8')
-    if hash_algo == 'sha256':
+    if hash_algo.lower() == 'sha256':
         user_data['hash'] = "SHA256"
         # sha256 hash output (32 bytes)
         hash_obj = hashlib.sha256(salt + password_bytes)
-    elif hash_algo == 'md5':
+    elif hash_algo.lower() == 'md5':
         user_data['hash'] = "MD5"
         hash_obj1 = hashlib.md5(salt + password_bytes).digest()
         # Extending 16-byte output of md5 to 32 bytes
@@ -286,18 +286,18 @@ def tamper():
 
     # Decode ciphertext from Base64 to raw
     ciphertext = base64.b64decode(user['ciphertext'])
-    print(ciphertext)
+#    print(ciphertext)
 
     # Convert to mutable bytearray so we can modify it
     tampered = bytearray(ciphertext)
-    print(tampered)
+#    print(tampered)
 
     # Flip one bit in the first byte
     tampered[0] ^= 1
 
     # Convert back to Base64
     tampered_b64 = base64.b64encode(bytes(tampered)).decode('utf-8')
-    print(tampered_b64)
+#    print(tampered_b64)
 
     # updating the user's ciphertext to tampered text
     for u in data:

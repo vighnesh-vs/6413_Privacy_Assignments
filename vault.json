@@ -15,6 +15,21 @@
         "name": "Shrd3",
         "salt": "R6YGBUSplLvhat+l4wW5dA==",
         "hash": "MD5",
-        "passwd": "e0fNktpgr7EXkwaD8w59PA=="
+        "passwd": "e0fNktpgr7EXkwaD8w59PA==",
+        "iv": "xXzkx26LPg3hrNCjSGUayw==",
+        "ciphertext": "SuWXuDG2qSxqEfvEdkvyB0p8bp3b0If9w1dJEiRY8l8=",
+        "integrity_hash": "ow3wHTtgCAF/PODfwCYeBEGYEM/n3jSIlTI+yxgzoA0="
+    },
+    {
+        "name": "Shrd4",
+        "salt": "OB1G8snFBD1mUOKOnuq97A==",
+        "hash": "SHA256",
+        "passwd": "jAem/yhwTCwhN73bI4MU6bNkDmjIXqWCOC5Hd9GQdKE="
+    },
+    {
+        "name": "Shrd5",
+        "salt": "DMNWB39X/WCacspVW0dazA==",
+        "hash": "MD5",
+        "passwd": "6eE9jY6Has7DHyzCNN/ZGg=="
     }
 ]
