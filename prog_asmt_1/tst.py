@@ -233,6 +233,7 @@ def is_tampered(iv, ciphertext, integrity_hash):
 
 def read(username, password):
     '''
+    function to read the user notes
     '''
     user_data = verify_user(username)
     if verify_user(username):
