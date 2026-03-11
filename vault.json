@@ -13,29 +13,8 @@
     },
     {
         "name": "Shrd3",
-        "salt": "X2fO8neP7t43eobHOnKCPQ==",
+        "salt": "R6YGBUSplLvhat+l4wW5dA==",
         "hash": "MD5",
-        "passwd": "+YFkPmJw8RAUA8KwlfF7Wg==",
-        "iv": "ypfa3ygpYRmxIxC65vsZqA==",
-        "ciphertext": "kbHan5KPz0raxxRfhBZHUyq5P58KN3sG1+N63xEaB38=",
-        "integrity_hash": "GxKPdWQiqDnHglscyg/lrJX+/bVPow1BTPJ00F7b314="
-    },
-    {
-        "name": "Shrd4",
-        "salt": "TiAvFcrfcT6z6vzbGXKDKQ==",
-        "hash": "MD5",
-        "passwd": "E1EtNbPZ+Wi5x/eBDXkMMw==",
-        "iv": "Gh77pKonaZINu2E/KpHmkQ==",
-        "ciphertext": "M4faqndByI/JdkDm3eWTcQ==",
-        "integrity_hash": "h4g488MDPhlX1M8qHgGqSej/UOC8WT6z10whNXnxrdo="
-    },
-    {
-        "name": "Shrd4",
-        "salt": "RWdXzUk4wL6j+Dx39sf0sA==",
-        "hash": "MD5",
-        "passwd": "lkNixyF6Wx/WiVhicOufXg==",
-        "iv": "Gh77pKonaZINu2E/KpHmkQ==",
-        "ciphertext": "M4faqndByI/JdkDm3eWTcQ==",
-        "integrity_hash": "h4g488MDPhlX1M8qHgGqSej/UOC8WT6z10whNXnxrdo="
+        "passwd": "e0fNktpgr7EXkwaD8w59PA=="
     }
 ]

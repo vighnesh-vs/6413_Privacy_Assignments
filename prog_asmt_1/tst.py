@@ -329,7 +329,7 @@ def main():
     '''
     selected_option = 1
     while (selected_option <= 6):
-        print('1.Register\n2.Store\n3.Read\n4.Tamper\n5.DeleteUser\n6.Exit')
+        print('\n1.Register\n2.Store\n3.Read\n4.Tamper\n5.DeleteUser\n6.Exit')
         inpt = input()
 
         try:
