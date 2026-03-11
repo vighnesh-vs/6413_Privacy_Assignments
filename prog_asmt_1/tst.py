@@ -13,16 +13,17 @@ from Crypto.Util.Padding import pad, unpad
 
 VAULT_FILE = 'vault.json'
 
+
 def load_vault():
     if not os.path.exists(VAULT_FILE):
         return {}
     with open(VAULT_FILE, "r") as f:
         return json.load(f)
-    
+
+
 def save_vault(data):
     with open(VAULT_FILE, "w") as f:
         json.dump(data, f, indent=4)
-
 
 
 def load_vault():
@@ -224,11 +225,12 @@ def is_tampered(iv, ciphertext, integrity_hash):
     d_iv = base64.b64decode(iv.encode('utf-8'))
     e_ciphertext = ciphertext.encode('utf-8')
     n_integrity_hash = hashlib.sha256(d_iv+e_ciphertext)
-    nd_integrity_hash = base64.b64encode(n_integrity_hash.digest()).decode('utf-8')
+    nd_integrity_hash = base64.b64encode(
+        n_integrity_hash.digest()).decode('utf-8')
     if hmac.compare_digest(integrity_hash, nd_integrity_hash):
-        return False  
+        return False
     else:
-        return True 
+        return True
 
 
 def read(username, password):
@@ -237,12 +239,13 @@ def read(username, password):
     '''
     user_data = verify_user(username)
     if verify_user(username):
-        if verify_login(password, user_data['salt'],user_data['hash'], user_data['passwd']):
+        if verify_login(password, user_data['salt'], user_data['hash'], user_data['passwd']):
             if user_data.get('ciphertext'):
                 if not is_tampered(user_data['iv'], user_data['ciphertext'], user_data['integrity_hash']):
                     aes_key = base64.b64decode(user_data['passwd'])
-                    message = decrypt_aes_cbc(user_data['ciphertext'], aes_key, base64.b64decode(user_data['iv'].encode('utf-8')))
-                    print(f'Decrypted: {message.decode('utf-8')}')
+                    message = decrypt_aes_cbc(user_data['ciphertext'], aes_key, base64.b64decode(
+                        user_data['iv'].encode('utf-8')))
+                    print(f"Decrypted: {message.decode('utf-8')}")
                 else:
                     print('Tampering detected!')
             else:
@@ -303,20 +306,6 @@ def delete_user():
 
     username = input("Username to delete: ")
 
-    if username in vault:
-        del vault[username]
-        save_vault(vault)
-        print("User deleted.")
-    else:
-        print("User not found.")
-    vault = load_vault()
-
-    username = input("Username to delete: ")
-
-# if username in vault:
-#       del vault[username]
-#       save_vault(vault)
-
     if verify_user(username):
         updated_data = [user for user in vault if user.get("name") != username]
         save_vault(updated_data)
@@ -337,7 +326,8 @@ def main():
         try:
             selected_option = int(inpt.strip())
         except Exception as e:
-            raise Exception('Error, not a number, try again, enter a number...')
+            raise Exception(
+                'Error, not a number, try again, enter a number...')
 
         if selected_option < 1 or selected_option > 6:
             print('Error, enter correct option...\n')
@@ -347,9 +337,12 @@ def main():
             if selected_option == 1:
 
                 username = input('Enter username: ')
-                passwd = input('Enter password: ')
-                hash_algo = input('Preferred Hash mode (md5/sha256): ')
-                register(username, passwd, hash_algo)
+                if verify_user(username):
+                    print('Username already exists!')
+                else:
+                    passwd = input('Enter password: ')
+                    hash_algo = input('Preferred Hash mode (md5/sha256): ')
+                    register(username, passwd, hash_algo)
 
             elif selected_option == 2:
 
