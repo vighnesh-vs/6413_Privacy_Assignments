@@ -346,10 +346,20 @@ def main():
             if selected_option == 1:
 
                 username = input('Enter username: ')
+                if username == '':
+                    username = input('Enter username again: ')
+                    if username == '':
+                        print("No name entered. Exiting")
+                        exit()
                 if verify_user(username):
                     print('Username already exists!')
                 else:
                     passwd = input('Enter password: ')
+                    if passwd == '':
+                        passwd = input('Enter password again: ')
+                        if passwd == '':
+                            print("No password entered. Exiting")
+                            exit()
                     hash_algo = input('Preferred Hash mode (md5/sha256): ')
                     register(username, passwd, hash_algo)
 
