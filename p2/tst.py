@@ -3,34 +3,10 @@ import random
 from phe import paillier
 
 
-class PaillierPublicKey:
-    pass
-
-
-class PaillierPrivateKey:
-    pass
-
-
-def generate_paillier_keypair(bits=512):
-    '''
-    function to generate paillier key pair
-    '''
-    pass
-
-
-def make_mac(student_id, ciphertext):
-    pass
-
-
-def check_mac(student_id, ciphertext, tag):
-    '''
-    should return boolean
-    '''
-
-
 class UniversityVotingSystem:
-
-    # Generate random 512-bit primes for Paillier: fresh keys genrated dynamically at every execution
+    '''
+    Generate random 512-bit primes for Paillier: fresh keys genrated dynamically at every execution
+    '''
 
     def __init__(self, key_length=512):
         # Setup: Generate Paillier keypair
@@ -61,7 +37,9 @@ class UniversityVotingSystem:
         return True, "Vote successfully recorded."
 
     def tally_results(self):
-        """Sums encrypted votes homomorphically and returns the decrypted total."""
+        '''
+        Sums encrypted votes homomorphically and returns the decrypted total.
+        '''
         if not self.encrypted_ballots:
             return 0
 
@@ -72,7 +50,8 @@ class UniversityVotingSystem:
         return self.__private_key.decrypt(encrypted_total)
 
     def check_integrity(self):
-        """verifies integriity of all encrypted votes against corresponding ballot_hashes"""
+        '''verifies integriity of all encrypted votes against corresponding ballot_hashes
+        '''
         if not self.encrypted_ballots:
             return 0
 
@@ -91,11 +70,12 @@ def main():
     main fuction to simulate the voting system
     '''
 
-    # --- Simulation for 100 Students ---
+    # Simulation for 100 Students
     KEY_LENGTH = 512
     vote_system = UniversityVotingSystem(key_length=KEY_LENGTH)
     actual_yes_votes = 0
 
+    # generating voting for the 100 students
     for i in range(100):
         student_id = f"STUDENT_{i:03d}"
         vote = random.choice([0, 1])
