@@ -97,7 +97,10 @@ def main():
     print(f"=== Tampering demo (modify a stored ciphertext) ===")
     print(f"Before tamper: MAC valid? {vote_system.check_integrity()}")
 
-    ### (INCLUDE TAMPERING CODE HERE --- modify one random element of ballot_hashes[]) ###
+    # (INCLUDE TAMPERING CODE HERE --- modify one random element of ballot_hashes[])
+    # TAMPERING
+    tamper_index = random.randint(0, len(vote_system.ballot_hashes) - 1)
+    vote_system.ballot_hashes[tamper_index] = "00" * 32  # corrupt one hash
 
     print(f"After tamper: MAC valid? {vote_system.check_integrity()}")
     print("\n")
