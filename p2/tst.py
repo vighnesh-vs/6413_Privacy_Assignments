@@ -9,8 +9,11 @@ class UniversityVotingSystem:
     '''
 
     def __init__(self, key_length=512):
-        # Setup: Generate Paillier keypair
-        # Public key is shared; Private key is kept secret by the Authority
+        '''
+        Setup: Generate Paillier keypair
+        Public key is shared; Private key is kept secret by the Authority
+        '''
+
         self.public_key, self.__private_key = paillier.generate_paillier_keypair(
             n_length=key_length)
 
@@ -19,9 +22,13 @@ class UniversityVotingSystem:
         self.ballot_hashes = []         # For integrity checks
 
     def cast_vote(self, student_id, vote):
-        """Encrypts and stores a student's vote with integrity protection."""
+        '''
+        Encrypts and stores a student's vote with integrity protection
+        '''
+
         if student_id in self.voter_registry:
-            return False, "Error: Student has already voted."             # Error reported in case of double voting
+            # Error detection: double voting
+            return False, "Error: Student has already voted."
 
         # Encryption: Compute Paillier encryption of boolean vote: 1 = YES, 0 = NO
         encrypted_vote = self.public_key.encrypt(vote)
@@ -40,6 +47,7 @@ class UniversityVotingSystem:
         '''
         Sums encrypted votes homomorphically and returns the decrypted total.
         '''
+
         if not self.encrypted_ballots:
             return 0
 
@@ -50,8 +58,10 @@ class UniversityVotingSystem:
         return self.__private_key.decrypt(encrypted_total)
 
     def check_integrity(self):
-        '''verifies integriity of all encrypted votes against corresponding ballot_hashes
         '''
+        verifies integriity of all encrypted votes against corresponding ballot_hashes
+        '''
+
         if not self.encrypted_ballots:
             return 0
 
@@ -82,7 +92,7 @@ def main():
         vote = random.choice([0, 1])
         actual_yes_votes += vote
         vote_system.cast_vote(student_id, vote)
-    
+
 #    print(f"{vote_system.cast_vote(student_id, vote)}")
 
     print(f"=== Election Setup ===")
