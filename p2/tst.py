@@ -21,9 +21,9 @@ class UniversityVotingSystem:
     def cast_vote(self, student_id, vote):
         """Encrypts and stores a student's vote with integrity protection."""
         if student_id in self.voter_registry:
-            return False, "Error: Student has already voted."
+            return False, "Error: Student has already voted."             # Error reported in case of double voting
 
-        # 1 = YES, 0 = NO
+        # Encryption: Compute Paillier encryption of boolean vote: 1 = YES, 0 = NO
         encrypted_vote = self.public_key.encrypt(vote)
 
         # Integrity: Hash the ciphertext to detect tampering
@@ -78,9 +78,12 @@ def main():
     # generating voting for the 100 students
     for i in range(100):
         student_id = f"STUDENT_{i:03d}"
+#        print(f"{student_id}")
         vote = random.choice([0, 1])
         actual_yes_votes += vote
         vote_system.cast_vote(student_id, vote)
+    
+#    print(f"{vote_system.cast_vote(student_id, vote)}")
 
     print(f"=== Election Setup ===")
     print(f"Students simulated: {len(vote_system.encrypted_ballots)}")
@@ -97,7 +100,6 @@ def main():
     print(f"=== Tampering demo (modify a stored ciphertext) ===")
     print(f"Before tamper: MAC valid? {vote_system.check_integrity()}")
 
-    # (INCLUDE TAMPERING CODE HERE --- modify one random element of ballot_hashes[])
     # TAMPERING
     tamper_index = random.randint(0, len(vote_system.ballot_hashes) - 1)
     vote_system.ballot_hashes[tamper_index] = "00" * 32  # corrupt one hash
